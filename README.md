@@ -1,13 +1,15 @@
 # Name
 
-lua-resty-rediswrap - Lua redis client for the ngx_lua based on openresty/lua-resty-redis;
+`lua-resty-redis` - Lua redis client for the ngx_lua based on openresty/lua-resty-redis.
 
 
-# 使用方法
+# Usage
 
-`redis`操作方法和`官方redis库`基本保持一致, 只是省去了设置超时时间、创建连接、设置`keepalive`连接池、关闭连接等步骤, 大大的方便我们的操作.
+`redis`操作方法和官方`redis`库基本保持一致,
+只是省去了设置超时时间、创建连接、设置`keepalive`连接池、关闭连接等步骤,
+大大的方便我们的操作.
 
-## `redis`常规命令用法
+## Redis basic commands
 
 ```lua
 local redis = require "redis_wrap"
@@ -39,7 +41,7 @@ if not res then
 end
 ```
 
-## `pipeline requests`用法
+## Pipeline requests
 
 ```lua
 local redis = require "redis_wrap"
@@ -68,7 +70,7 @@ end
 ```
 
 
-# 参考资料
+# References
 
 https://github.com/openresty/lua-resty-redis
 
