@@ -2,20 +2,20 @@
 
 `lua-resty-redis` - Lua redis client for the ngx_lua based on openresty/lua-resty-redis.
 
+## Usage
 
-# Usage
+The `redis` operation method is basically the same as the official `redis` library.
+It just saves the steps of setting timeout time, creating connection, setting `keepalive` connection pool, closing connection, etc.
+It greatly facilitates our operation.
 
-`redis`操作方法和官方`redis`库基本保持一致,
-只是省去了设置超时时间、创建连接、设置`keepalive`连接池、关闭连接等步骤,
-大大的方便我们的操作.
-
-## Redis basic commands
+### Redis basic commands
 
 ```lua
 local redis = require "redis_wrap"
 
--- redis配置参数列表, 如果不想开启keepalive, 需要去掉下表中的keepalive两个元素,
--- 然后新加一个：keepalive = "off" 即可.
+-- Redis configuration parameter list, if you don't want to enable keepalive,
+-- you need to remove the two elements of keepalive in the table below,
+-- and then add a new one: keepalive = "off".
 local redis_opts = {
     db_index = 1,
     timeout = 2000, -- 2 seconds.
@@ -23,17 +23,17 @@ local redis_opts = {
     keepalive_pool_size = 20,
 }
 
--- 获取redis对象
+-- Get the redis object.
 local red = redis:new(redis_opts)
 
--- set 操作
+-- set
 local ok, err = red:set("dog", "an animal")
 if not ok then
     ngx.say("failed to set dog: ", err)
     return
 end
 
--- get 操作
+-- get
 local res, err = red:get("dog")
 if not res then
     ngx.say("failed to get dog: ", err)
@@ -41,7 +41,7 @@ if not res then
 end
 ```
 
-## Pipeline requests
+### Pipeline requests
 
 ```lua
 local redis = require "redis_wrap"
@@ -55,7 +55,8 @@ local redis_opts = {
 
 local red = redis:new(redis_opts)
 
-red:init_pipeline(4) -- 参数可以省略, 加参数是在已知命令条目数量的情况下, 为了高效处理.
+-- Parameters can be omitted, adding parameters is for efficient processing when the number of command entries is known.
+red:init_pipeline(4)
 
 red:set("dog", "111")
 red:set("cat", "222")
@@ -69,8 +70,7 @@ if not results then
 end
 ```
 
-
-# References
+## References
 
 https://github.com/openresty/lua-resty-redis
 
